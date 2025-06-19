@@ -7,13 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const buttons = document.querySelectorAll('.btn');
   const startBtn = document.getElementById('start');
 
-  // 色名と対応ボタンのMap
-  const buttonMap = {
-    red: document.querySelector('.btn.red'),
-    green: document.querySelector('.btn.green'),
-    blue: document.querySelector('.btn.blue'),
-    yellow: document.querySelector('.btn.yellow'),
-  };
+  // ボタンマップ作成
+  const buttonMap = {};
+  colors.forEach(color => {
+    buttonMap[color] = document.querySelector(`.btn.${color}`);
+  });
+
+  // ログで確認（不要なら削除OK）
   console.log('buttonMap:', buttonMap);
 
   // イベント設定
@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     canClick = false;
     const nextColor = colors[Math.floor(Math.random() * colors.length)];
     sequence.push(nextColor);
+    console.log('sequence:', sequence); // ← 確認用
     userSequence = [];
     playSequence();
   }
@@ -42,24 +43,29 @@ document.addEventListener('DOMContentLoaded', () => {
       i++;
       if (i >= sequence.length) {
         clearInterval(interval);
-        setTimeout(() => { canClick = true; }, 700);
+        setTimeout(() => { canClick = true; }, 500);
       }
-    }, 1000); // ここを1000msにしてゆっくり光らせる
+    }, 800); // 間隔調整
   }
 
-function flashColor(color) {
-  console.log('flashColor:', color);
-  const button = buttonMap[color];
-  button.classList.add('active');
-  setTimeout(() => {
-    button.classList.remove('active');
-  }, 400);
-}
+  function flashColor(color) {
+    console.log('flashColor:', color); // ← 確認用
+    const button = buttonMap[color];
+    if (!button) {
+      console.error(`ボタンが見つかりません: ${color}`);
+      return;
+    }
+    button.classList.add('active');
+    setTimeout(() => {
+      button.classList.remove('active');
+    }, 400);
+  }
 
   function handleClick(e) {
     if (!canClick) return;
+
     const color = e.target.dataset.color;
-    flashColor(color); // ユーザー操作にも光るエフェクト
+    flashColor(color); // ユーザー操作でも光らせる
     userSequence.push(color);
 
     const index = userSequence.length - 1;
