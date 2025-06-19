@@ -7,16 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const buttons = document.querySelectorAll('.btn');
   const startBtn = document.getElementById('start');
 
-  // ボタンマップ作成
   const buttonMap = {};
   colors.forEach(color => {
     buttonMap[color] = document.querySelector(`.btn.${color}`);
   });
 
-  // ログで確認（不要なら削除OK）
-  console.log('buttonMap:', buttonMap);
-
-  // イベント設定
   startBtn.addEventListener('click', startGame);
   buttons.forEach(btn => btn.addEventListener('click', handleClick));
 
@@ -30,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
     canClick = false;
     const nextColor = colors[Math.floor(Math.random() * colors.length)];
     sequence.push(nextColor);
-    console.log('sequence:', sequence); // ← 確認用
     userSequence = [];
     playSequence();
   }
@@ -43,16 +37,17 @@ document.addEventListener('DOMContentLoaded', () => {
       i++;
       if (i >= sequence.length) {
         clearInterval(interval);
-        setTimeout(() => { canClick = true; }, 500);
+        setTimeout(() => {
+          canClick = true;
+        }, 500);
       }
-    }, 800); // 間隔調整
+    }, 800);
   }
 
   function flashColor(color) {
-    console.log('flashColor:', color); // ← 確認用
     const button = buttonMap[color];
     if (!button) {
-      console.error(`ボタンが見つかりません: ${color}`);
+      console.error('ボタンが見つかりません:', color);
       return;
     }
     button.classList.add('active');
@@ -63,9 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function handleClick(e) {
     if (!canClick) return;
-
     const color = e.target.dataset.color;
-    flashColor(color); // ユーザー操作でも光らせる
+    flashColor(color);
     userSequence.push(color);
 
     const index = userSequence.length - 1;
@@ -77,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (userSequence.length === sequence.length) {
       canClick = false;
-      setTimeout(nextStep, 1000);
+      setTimeout(nextStep, 800);
     }
   }
 });
