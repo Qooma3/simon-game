@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     blue: document.querySelector('.btn.blue'),
     yellow: document.querySelector('.btn.yellow'),
   };
+  console.log('buttonMap:', buttonMap);
 
   // イベント設定
   startBtn.addEventListener('click', startGame);
