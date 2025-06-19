@@ -46,13 +46,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 1000); // ここを1000msにしてゆっくり光らせる
   }
 
-  function flashColor(color) {
-    const button = buttonMap[color];
-    button.classList.add('active');
-    setTimeout(() => {
-      button.classList.remove('active');
-    }, 400);
-  }
+function flashColor(color) {
+  console.log('flashColor:', color);
+  const button = buttonMap[color];
+  button.classList.add('active');
+  setTimeout(() => {
+    button.classList.remove('active');
+  }, 400);
+}
 
   function handleClick(e) {
     if (!canClick) return;
