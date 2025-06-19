@@ -40,11 +40,9 @@ function playSequence() {
     i++;
     if (i >= sequence.length) {
       clearInterval(interval);
-      setTimeout(() => {
-        canClick = true;
-      }, 500);
+      setTimeout(() => { canClick = true; }, 700);
     }
-  }, 800);
+  }, 1000); // ここを1000msにしてゆっくり光らせる
 }
 
 function flashColor(color) {

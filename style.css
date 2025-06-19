@@ -23,4 +23,7 @@ body {
 .yellow { background: yellow; }
 .btn.active {
   opacity: 1 !important;
+  filter: brightness(1.5);
+  box-shadow: 0 0 20px white;
+  transition: filter 0.3s, box-shadow 0.3s;
 }
