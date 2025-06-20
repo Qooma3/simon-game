@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   colors.forEach(color => {
     buttonMap[color] = document.querySelector(`.btn.${color}`);
   });
+  console.log('buttonMap:', buttonMap);
 
   startBtn.addEventListener('click', startGame);
   buttons.forEach(btn => btn.addEventListener('click', handleClick));
@@ -37,9 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
       i++;
       if (i >= sequence.length) {
         clearInterval(interval);
-        setTimeout(() => {
-          canClick = true;
-        }, 500);
+        setTimeout(() => { canClick = true; }, 500);
       }
     }, 800);
   }
